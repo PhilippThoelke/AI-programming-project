@@ -3,8 +3,6 @@ package optimization;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import java.util.Arrays;
-
 public class Optimizers {
 
 	public static void hillClimbing(int psuCount) {

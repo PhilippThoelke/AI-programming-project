@@ -31,7 +31,6 @@ public class State {
 				visited.add(newStateObject);
 				neighbourhood.add(newState);
 			}
-			System.out.println(visited.size());
 		}
 		return neighbourhood;
 	}

@@ -9,7 +9,7 @@ public class Loss {
 		}
 		// TODO: calculate loss of the current state
 
-		return 0;
+		return numberPSUs;
 	}
 
 }

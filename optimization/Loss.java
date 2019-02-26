@@ -7,7 +7,9 @@ import frame.Warehouse;
 public class Loss {
 
 	public static float loss(boolean[] currentState) {
-		return (float) numItemsCovered(currentState) / (float) numItemsCarried(currentState);
+		float covered = (float) numItemsCovered(currentState) / Warehouse.orderSize();
+		float usedPSUs = (float) numPSUsUsed(currentState) / Warehouse.psuCount();
+		return covered - usedPSUs;
 	}
 
 	public static int numItemsCarried(boolean[] state) {

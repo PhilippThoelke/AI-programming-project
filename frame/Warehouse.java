@@ -4,11 +4,12 @@ import optimization.Optimizers;
 
 public class Warehouse {
 
-	public static PSU[] psus;
+	private static PSU[] psus;
+	private static int[] order;
 
 	public static void main(String[] args) {
 		psus = Parser.parseWarehouse("problem_files\\problem1.txt");
-		int[] order = Parser.parseOrder("problem_files\\order11.txt");
+		order = Parser.parseOrder("problem_files\\order11.txt");
 
 		Optimizers.hillClimbing(10);
 	}

@@ -1,21 +1,28 @@
 package frame;
 
 import java.util.HashMap;
-import java.util.Arrays;
+import java.util.HashSet;
 
 public class PSU {
 
 	private static HashMap<String, Integer> itemMapping = new HashMap<>();
 	private static HashMap<Integer, String> reverseItemMapping = new HashMap<>();
 
-	private int[] items;
+	private HashSet<Integer> items;
 
 	public PSU(String[] itemArr) {
-		items = new int[itemArr.length];
+		items = new HashSet<>();
 		for (int i = 0; i < itemArr.length; i++) {
-			items[i] = itemMapping.get(itemArr[i]);
+			items.add(itemMapping.get(itemArr[i]));
 		}
-		Arrays.sort(items);
+	}
+
+	public HashSet<Integer> getItems() {
+		return items;
+	}
+
+	public int itemCount() {
+		return items.size();
 	}
 
 	public static int[] indices(String[] itemNames) {

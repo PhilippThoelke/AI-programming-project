@@ -12,14 +12,16 @@ public class Warehouse {
 
 	public static void main(String[] args) {
 		psus = Parser.parseWarehouse("problem_files\\problem1.txt");
-		order = Parser.parseOrder("problem_files\\order11.txt");
+		order = Parser.parseOrder("problem_files\\order12.txt");
 
 		boolean[] optimalMask = Optimizers.hillClimbing(psus.length);
 
 		System.out.print("Items covered: " + Loss.numItemsCovered(optimalMask));
 		System.out.println("/" + order.length);
 		System.out.println("Items carried: " + numItemsCarried(optimalMask));
-		System.out.println("PSUs used: " + Loss.numPSUsUsed(optimalMask));
+		System.out.println("Individual items carried: " + maskedItems(optimalMask).size());
+		System.out.print("PSUs used: " + Loss.numPSUsUsed(optimalMask));
+		System.out.println("/" + psus.length);
 	}
 
 	public static HashSet<Integer> maskedItems(boolean[] mask) {
@@ -34,8 +36,10 @@ public class Warehouse {
 
 	public static int numItemsCarried(boolean[] mask) {
 		int numItemsCarried = 0;
-		for (PSU psu : psus) {
-			numItemsCarried += psu.itemCount();
+		for (int i = 0; i < psus.length; i++) {
+			if (mask[i]) {
+				numItemsCarried += psus[i].itemCount();
+			}
 		}
 		return numItemsCarried;
 	}

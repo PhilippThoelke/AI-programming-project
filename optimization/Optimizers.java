@@ -5,7 +5,7 @@ import java.util.ListIterator;
 
 public class Optimizers {
 
-	public static void hillClimbing(int psuCount) {
+	public static boolean[] hillClimbing(int psuCount) {
 		boolean[] current = State.randomState(psuCount);
 
 		LinkedList<boolean[]> neighbourhood;
@@ -24,6 +24,8 @@ public class Optimizers {
 				}
 			}
 		}
+
+		return current;
 	}
 
 }

@@ -5,7 +5,8 @@ import java.util.Arrays;
 
 public class PSU {
 
-	public static HashMap<String, Integer> itemMapping;
+	private static HashMap<String, Integer> itemMapping = new HashMap<>();
+	private static HashMap<Integer, String> reverseItemMapping = new HashMap<>();
 
 	private int[] items;
 
@@ -23,6 +24,16 @@ public class PSU {
 			indices[i] = itemMapping.get(itemNames[i]);
 		}
 		return indices;
+	}
+
+	public static void addItemMapping(String name, int index) {
+		itemMapping.put(name, index);
+		reverseItemMapping.put(index, name);
+	}
+
+	public static void resetItemMapping() {
+		itemMapping = new HashMap<>();
+		reverseItemMapping = new HashMap<>();
 	}
 
 }

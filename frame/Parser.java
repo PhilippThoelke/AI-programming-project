@@ -15,9 +15,9 @@ public class Parser {
 
 			// assign indices to all items an save in PSU class
 			String[] itemArr = reader.readLine().split(" ");
-			PSU.itemMapping = new HashMap<>();
+			PSU.resetItemMapping();
 			for (int i = 0; i < itemArr.length; i++) {
-				PSU.itemMapping.put(itemArr[i], i);
+				PSU.addItemMapping(itemArr[i], i);
 			}
 
 			// skip empty line

@@ -26,6 +26,7 @@ import java.awt.Container;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import java.lang.Thread;
 import java.lang.Runnable;
@@ -75,7 +76,7 @@ public class Window {
 
 		// ----------------------- WAREHOUSE FILE SECTION -----------------------
 		JLabel warehouseFileLbl = new JLabel("Warehouse file");
-		warehouseFileTxt = new JTextField();
+		warehouseFileTxt = new JTextField(25);
 		warehouseFileTxt.setEditable(false);
 		JButton openWarehouseBtn = new JButton("Open");
 		openWarehouseBtn.addActionListener(new ActionListener() {
@@ -141,6 +142,7 @@ public class Window {
 		outputPane = new JTextPane();
 		outputPane.setEditable(false);
 		outputPane.addStyle(COLOR_STYLE, null);
+		outputPane.setPreferredSize(new Dimension(600, 600));
 		JScrollPane scrollPane = new JScrollPane(outputPane);
 
 		contentPane.add(scrollPane);
@@ -210,6 +212,7 @@ public class Window {
 		updateStateCountTxt();
 
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
@@ -259,6 +262,7 @@ public class Window {
 
 		try {
 			doc.insertString(doc.getLength(), str, style);
+			outputPane.select(doc.getLength(), doc.getLength());
 		} catch (BadLocationException e) {
 			System.err.println(e.getMessage());
 		}

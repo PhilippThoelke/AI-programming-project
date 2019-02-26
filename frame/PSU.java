@@ -17,6 +17,18 @@ public class PSU {
 		}
 	}
 
+	public String itemsToString() {
+		String result = "";
+		for (Integer index : items) {
+			result += reverseItemMapping.get(index) + ", ";
+		}
+		if (result.isEmpty()) {
+			return result;
+		} else {
+			return result.substring(0, result.length() - 2);
+		}
+	}
+
 	public HashSet<Integer> getItems() {
 		return items;
 	}

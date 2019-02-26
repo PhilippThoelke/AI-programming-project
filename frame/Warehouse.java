@@ -12,10 +12,11 @@ public class Warehouse {
 
 	public static void main(String[] args) {
 		psus = Parser.parseWarehouse("problem_files\\problem1.txt");
-		order = Parser.parseOrder("problem_files\\order12.txt");
+		order = Parser.parseOrder("problem_files\\order11.txt");
 
 		boolean[] optimalMask = Optimizers.hillClimbing(psus.length);
 
+		System.out.println("Loss: " + Loss.loss(optimalMask));
 		System.out.print("Items covered: " + Loss.numItemsCovered(optimalMask));
 		System.out.println("/" + order.length);
 		System.out.println("Items carried: " + numItemsCarried(optimalMask));
@@ -46,6 +47,14 @@ public class Warehouse {
 
 	public static int[] currentOrder() {
 		return order;
+	}
+
+	public static int orderSize() {
+		return order.length;
+	}
+
+	public static int psuCount() {
+		return psus.length;
 	}
 
 }

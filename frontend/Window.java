@@ -30,6 +30,8 @@ import java.awt.Color;
 import java.lang.Thread;
 import java.lang.Runnable;
 
+import java.text.DecimalFormat;
+
 public class Window {
 
 	private static final int SPACING = 5;
@@ -273,6 +275,9 @@ public class Window {
 	}
 
 	private void startAlgorithm() {
+		if (!outputPane.getText().isEmpty()) {
+			print("\n");
+		}
 		if (checkInputFields()) {
 			new Thread(new Runnable() {
 				public void run() {
@@ -286,10 +291,12 @@ public class Window {
 		startBtn.setEnabled(false);
 
 		String selected = (String) algorithmBox.getSelectedItem();
-		if (!outputPane.getText().isEmpty()) {
-			print("\n");
-		}
-		println("Starting to optimize with " + selected);
+		print("<<------------------ ");
+		print("Starting optimization", new Color(255, 153, 0));
+		println(" ------------------>>");
+		println("Selected optimizer: " + selected);
+
+		long startTime = System.nanoTime();
 
 		boolean[] optimized = null;
 		if (selected.equals(algorithmNames[0])) {
@@ -310,9 +317,23 @@ public class Window {
 
 		if (optimized != null) {
 			print("Optimization finished ", new Color(255, 153, 0));
-			println("(loss: " + Loss.loss(optimized) + ")");
-			print("Number of used PSUs: ");
+			float deltaTime = (System.nanoTime() - startTime) / 1e9f;
+			DecimalFormat format = new DecimalFormat("#.##");
+			println("(" + format.format(deltaTime) + " seconds)");
+
+			print("\nNumber of used PSUs: ");
 			println(Integer.toString(Loss.numPSUsUsed(optimized)), new Color(0, 200, 0));
+
+			print("Number of carried items: ");
+			print(Integer.toString(Warehouse.numItemsCarried(optimized)), new Color(0, 200, 0));
+			print(" (individual: ");
+			print(Integer.toString(Warehouse.maskedItems(optimized).size()), new Color(0, 200, 0));
+			println(")");
+
+			print("Loss: ");
+			println(Float.toString(Loss.loss(optimized)), new Color(0, 200, 0));
+
+			print("\n");
 			for (int i = 0; i < optimized.length; i++) {
 				if (optimized[i]) {
 					print("PSU identifier: ");
@@ -322,7 +343,7 @@ public class Window {
 				}
 			}
 		} else {
-			println("ERROR: optimizer returned null", Color.red);
+			println("ERROR: Optimizer returned null", Color.red);
 		}
 	}
 

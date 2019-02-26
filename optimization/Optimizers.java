@@ -9,6 +9,7 @@ public class Optimizers {
 		boolean[] current = State.randomState(psuCount);
 
 		LinkedList<boolean[]> neighbourhood;
+		boolean[] newState;
 		ListIterator it;
 
 		boolean foundBetter = true;
@@ -17,7 +18,7 @@ public class Optimizers {
 			neighbourhood = State.unvisitedNeighbourhood(current);
 			it = neighbourhood.listIterator();
 			while (it.hasNext()) {
-				boolean[] newState = (boolean[]) it.next();
+				newState = (boolean[]) it.next();
 				if (Loss.loss(current) < Loss.loss(newState)) {
 					current = newState;
 					foundBetter = true;

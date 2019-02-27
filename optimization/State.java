@@ -43,12 +43,12 @@ public class State {
 		return neighbourhood;
 	}
 
-	public static Float getStateValue(boolean[] state) {
+	public synchronized static Float getStateValue(boolean[] state) {
 		// return loss value from the state-loss map
 		return visited.get(new StateArray(state));
 	}
 
-	public static void setStateValue(boolean[] state, float value) {
+	public synchronized static void setStateValue(boolean[] state, float value) {
 		// set the loss of a state in the state-loss map
 		visited.replace(new StateArray(state), value);
 	}

@@ -5,13 +5,16 @@ import java.util.HashSet;
 
 public class PSU {
 
+	// global mapping of item names to integers and reverse
 	private static HashMap<String, Integer> itemMapping = new HashMap<>();
 	private static HashMap<Integer, String> reverseItemMapping = new HashMap<>();
 
+	// IDs of the items stored by this PSU
 	private HashSet<Integer> items;
 
 	public PSU(String[] itemArr) {
 		items = new HashSet<>();
+		// initialize this PSU's item set by mapping the item name to an integer
 		for (int i = 0; i < itemArr.length; i++) {
 			items.add(itemMapping.get(itemArr[i]));
 		}
@@ -19,12 +22,16 @@ public class PSU {
 
 	public String itemsToString() {
 		String result = "";
+		// collect names of all items in a string separated by commas
 		for (Integer index : items) {
 			result += reverseItemMapping.get(index) + ", ";
 		}
+
 		if (result.isEmpty()) {
+			// string is empty (this PSU has no items) -> no unnecessary comma at the end
 			return result;
 		} else {
+			// remove the last comma if the string is non-empty
 			return result.substring(0, result.length() - 2);
 		}
 	}
@@ -37,8 +44,11 @@ public class PSU {
 		return items.size();
 	}
 
+	// ----------------- static operations ----------------- \\
+
 	public static int[] indices(String[] itemNames) {
 		int[] indices = new int[itemNames.length];
+		// find the corresponding index for each item name in the array
 		for (int i = 0; i < itemNames.length; i++) {
 			indices[i] = itemMapping.get(itemNames[i]);
 		}
@@ -46,13 +56,15 @@ public class PSU {
 	}
 
 	public static void addItemMapping(String name, int index) {
+		// add a new item with corresponding ID into the maps
 		itemMapping.put(name, index);
 		reverseItemMapping.put(index, name);
 	}
 
 	public static void resetItemMapping() {
-		itemMapping = new HashMap<>();
-		reverseItemMapping = new HashMap<>();
+		// remove all entries from both maps
+		itemMapping.clear();
+		reverseItemMapping.clear();
 	}
 
 }

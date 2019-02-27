@@ -36,7 +36,13 @@ import java.text.DecimalFormat;
 
 public class Window {
 
+	// ------------- GUI ATTRIBUTES ------------- \\
 	private static final int SPACING = 5;
+
+	private static final Color ORANGE = new Color(255, 153, 0);
+	private static final Color GREEN = new Color(0, 200, 0);
+
+	private static final String COLOR_STYLE = "color style";
 
 	private static final String NORTH = SpringLayout.NORTH;
 	private static final String EAST = SpringLayout.EAST;
@@ -46,9 +52,7 @@ public class Window {
 	private static final int WAREHOUSE = 0;
 	private static final int ORDER = 1;
 
-	private static final Color ORANGE = new Color(255, 153, 0);
-	private static final Color GREEN = new Color(0, 200, 0);
-
+	// ------------- ALGORITHM ATTRIBUTES ------------- \\
 	private static final String[] algorithmNames = {
 		"Hill climbing",
 		"First choice hill climbing",
@@ -59,8 +63,7 @@ public class Window {
 
 	private static final int[] stateCountRequiredIndices = {2, 3};
 
-	private static final String COLOR_STYLE = "color style";
-
+	// ------------- LAYOUT COMPONENTS ------------- \\
 	private JFrame frame;
 
 	private JTextField warehouseFileTxt;
@@ -76,6 +79,7 @@ public class Window {
 		frame = new JFrame("AI Programming Project");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		// initialize content pane with a spring layout
 		Container contentPane = frame.getContentPane();
 		SpringLayout layout = new SpringLayout();
 		contentPane.setLayout(layout);
@@ -91,6 +95,7 @@ public class Window {
 			}
 		});
 
+		// add components to the layout
 		contentPane.add(warehouseFileLbl);
 		contentPane.add(warehouseFileTxt);
 		contentPane.add(openWarehouseBtn);
@@ -107,6 +112,7 @@ public class Window {
 			}
 		});
 
+		// add components to the layout
 		contentPane.add(orderFileLbl);
 		contentPane.add(orderFileTxt);
 		contentPane.add(openOrderBtn);
@@ -121,6 +127,7 @@ public class Window {
 			}
 		});
 
+		// add components to the layout
 		contentPane.add(algorithmLbl);
 		contentPane.add(algorithmBox);
 
@@ -129,6 +136,7 @@ public class Window {
 		JLabel stateCountLbl = new JLabel("Number of states");
 		stateCountTxt = new JTextField();
 
+		// add components to the layout
 		contentPane.add(stateCountLbl);
 		contentPane.add(stateCountTxt);
 
@@ -141,6 +149,7 @@ public class Window {
 			}
 		});
 
+		// add the component to the layout
 		contentPane.add(startBtn);
 
 		// ----------------------- OUTPUT SECTION -----------------------
@@ -151,10 +160,12 @@ public class Window {
 		outputPane.setPreferredSize(new Dimension(600, 600));
 		JScrollPane scrollPane = new JScrollPane(outputPane);
 
+		// add the component to the layout
 		contentPane.add(scrollPane);
 
 		// ----------------------- WAREHOUSE FILE SECTION CONSTRAINTS -----------------------
 
+		// warehouseFileLbl
 		layout.putConstraint(WEST, warehouseFileLbl, SPACING, WEST, contentPane);
 		layout.putConstraint(NORTH, warehouseFileLbl, SPACING, NORTH, contentPane);
 		layout.putConstraint(EAST, warehouseFileLbl, 0, EAST, openWarehouseBtn);
@@ -343,8 +354,7 @@ public class Window {
 		} else if (selected.equals(algorithmNames[3])) {
 			optimized = Optimizers.parallelHillClimbing(Warehouse.psuCount(), stateCount);
 		} else if (selected.equals(algorithmNames[4])) {
-			// TODO: implement Simulated annealing
-			println("ERROR: Not yet implemented", Color.red);
+			optimized = Optimizers.simulatedAnnealing(Warehouse.psuCount());
 		}
 		startBtn.setEnabled(true);
 		openWarehouseBtn.setEnabled(true);

@@ -7,14 +7,9 @@ import frame.Warehouse;
 public class Loss {
 
 	public static float loss(boolean[] currentState) {
-		Float stateLoss = State.getStateValue(currentState);
-		if (stateLoss == null) {
-			float covered = (float) numItemsCovered(currentState) / Warehouse.orderSize();
-			float usedPSUs = (float) numPSUsUsed(currentState) / Warehouse.psuCount();
-			stateLoss = covered - usedPSUs;
-			State.setStateValue(currentState, stateLoss);
-		}
-		return stateLoss;
+		float covered = (float) numItemsCovered(currentState) / Warehouse.orderSize();
+		float usedPSUs = (float) numPSUsUsed(currentState) / Warehouse.psuCount();
+		return covered - usedPSUs;
 	}
 
 	public static int numItemsCarried(boolean[] state) {

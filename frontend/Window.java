@@ -3,6 +3,7 @@ package frontend;
 import frame.Warehouse;
 
 import optimization.Loss;
+import optimization.State;
 import optimization.Optimizers;
 
 import java.io.File;
@@ -285,6 +286,7 @@ public class Window {
 		if (checkInputFields()) {
 			new Thread(new Runnable() {
 				public void run() {
+				        State.reset();
 				        optimize();
 				}
 			}).start();

@@ -69,6 +69,8 @@ public class Window {
 	private JTextField stateCountTxt;
 	private JTextPane outputPane;
 	private JButton startBtn;
+	private JButton openWarehouseBtn;
+	private JButton openOrderBtn;
 
 	public Window() {
 		frame = new JFrame("AI Programming Project");
@@ -82,7 +84,7 @@ public class Window {
 		JLabel warehouseFileLbl = new JLabel("Warehouse file");
 		warehouseFileTxt = new JTextField(25);
 		warehouseFileTxt.setEditable(false);
-		JButton openWarehouseBtn = new JButton("Open");
+		openWarehouseBtn = new JButton("Open");
 		openWarehouseBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			        openFile(WAREHOUSE);
@@ -98,7 +100,7 @@ public class Window {
 		JLabel orderFileLbl = new JLabel("Order file");
 		orderFileTxt = new JTextField();
 		orderFileTxt.setEditable(false);
-		JButton openOrderBtn = new JButton("Open");
+		openOrderBtn = new JButton("Open");
 		openOrderBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			        openFile(ORDER);
@@ -231,16 +233,33 @@ public class Window {
 
 			switch (type) {
 				case WAREHOUSE:
-					warehouseFileTxt.setText(filePath);
-					Warehouse.readWarehouseFile(filePath);
+					if (Warehouse.readWarehouseFile(filePath)) {
+						warehouseFileTxt.setText(filePath);
+					} else {
+						parsingError(type);
+						warehouseFileTxt.setText("");
+					}
 					break;
 
 				case ORDER:
-					orderFileTxt.setText(filePath);
-					Warehouse.readOrderFile(filePath);
+					if (Warehouse.readOrderFile(filePath)) {
+						orderFileTxt.setText(filePath);
+					} else {
+						parsingError(type);
+						orderFileTxt.setText("");
+					}
 					break;
 			}
 		}
+	}
+
+	private void parsingError(int fileType) {
+		String fileName = fileType == WAREHOUSE ? "warehouse" : "order";
+		print("ERROR: The selected " + fileName + " file could not be parsed", Color.red);
+		if (fileType == ORDER) {
+			print(" (a warehouse file must be selected before selecting the order file)", Color.red);
+		}
+		print("\n");
 	}
 
 	private void updateStateCountTxt() {
@@ -297,6 +316,8 @@ public class Window {
 
 	private void optimize() {
 		startBtn.setEnabled(false);
+		openWarehouseBtn.setEnabled(false);
+		openOrderBtn.setEnabled(false);
 
 		String selected = (String) algorithmBox.getSelectedItem();
 		int stateCount = -1;
@@ -326,6 +347,8 @@ public class Window {
 			println("ERROR: Not yet implemented", Color.red);
 		}
 		startBtn.setEnabled(true);
+		openWarehouseBtn.setEnabled(true);
+		openOrderBtn.setEnabled(true);
 
 		if (optimized != null) {
 			print("Optimization finished ", ORANGE);

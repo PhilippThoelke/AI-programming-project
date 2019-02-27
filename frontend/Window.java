@@ -50,7 +50,7 @@ public class Window {
 		"Hill climbing",
 		"First choice hill climbing",
 		"Local beam search",
-		"Random restart hill climbing",
+		"Parallel hill climbing",
 		"Simulated annealing"
 	};
 
@@ -297,6 +297,11 @@ public class Window {
 		startBtn.setEnabled(false);
 
 		String selected = (String) algorithmBox.getSelectedItem();
+		int stateCount = -1;
+		if (!stateCountTxt.getText().isEmpty()) {
+			stateCount = Integer.parseInt(stateCountTxt.getText());
+		}
+
 		print("<<------------------ ");
 		print("Starting optimization", new Color(255, 153, 0));
 		println(" ------------------>>");
@@ -313,8 +318,7 @@ public class Window {
 			// TODO: implement Local beam search
 			println("ERROR: Not yet implemented", Color.red);
 		} else if (selected.equals(algorithmNames[3])) {
-			// TODO: implement Random restart hill climbing
-			println("ERROR: Not yet implemented", Color.red);
+			optimized = Optimizers.parallelHillClimbing(Warehouse.psuCount(), stateCount);
 		} else if (selected.equals(algorithmNames[4])) {
 			// TODO: implement Simulated annealing
 			println("ERROR: Not yet implemented", Color.red);

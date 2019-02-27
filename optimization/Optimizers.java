@@ -1,8 +1,5 @@
 package optimization;
 
-import java.util.LinkedList;
-import java.util.ListIterator;
-
 import java.lang.Thread;
 import java.lang.Runnable;
 import java.lang.InterruptedException;
@@ -18,13 +15,11 @@ public class Optimizers {
 	}
 
 	private static boolean[] hillClimbing(int psuCount, boolean firstChoice) {
-		// initialize initial state randomly
+		// initialize first state randomly
 		boolean[] current = State.randomState(psuCount);
 		float currentLoss = Loss.loss(current);
 
-		LinkedList<boolean[]> neighbourhood;
-		boolean[] newState;
-		ListIterator it;
+		boolean[][] neighbourhood;
 		float newLoss;
 
 		boolean foundBetter = true;
@@ -32,20 +27,17 @@ public class Optimizers {
 		while (foundBetter) {
 			foundBetter = false;
 			// get the neighbourhood of the current state
-			neighbourhood = State.unvisitedNeighbourhood(current);
+			neighbourhood = State.generateNeighbourhood(current);
 
-			it = neighbourhood.listIterator();
 			// (!foundBetter || !firstChoice) is true if firstChoice is false
 			// --> foundBetter has no influence on while condition
 			// if firstChoice is true then foundBetter stops the loop as soon as it becomes true
 			// loop iterates over the neighbourhood, stops after first improvement if firstChoice is true
-			while (it.hasNext() && (!foundBetter || !firstChoice)) {
-				newState = (boolean[]) it.next();
-				newLoss = Loss.loss(newState);
-
+			for (int i = 0; i < neighbourhood.length && (!foundBetter || !firstChoice); i++) {
+				newLoss = Loss.loss(neighbourhood[i]);
 				// compare loss of new state to currently best state
 				if (currentLoss < newLoss) {
-					current = newState;
+					current = neighbourhood[i];
 					currentLoss = newLoss;
 					foundBetter = true;
 				}
@@ -63,11 +55,11 @@ public class Optimizers {
 			threads[i] = new Thread(new Runnable() {
 				public void run() {
 				        results[index] = hillClimbing(psuCount);
-				        System.out.println("Thread " + index + " finished");
 				}
 			});
 			threads[index].start();
 		}
+
 		try {
 			for (int i = 0; i < threads.length; i++) {
 				threads[i].join();

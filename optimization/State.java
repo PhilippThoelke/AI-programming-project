@@ -1,7 +1,7 @@
 package optimization;
 
 import java.util.Random;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Arrays;
 
@@ -10,7 +10,7 @@ public class State {
 	private static Random rand = new Random();
 
 	// all states that have already been visited
-	private static HashSet<StateArray> visited = new HashSet<StateArray>();
+	private static HashMap<StateArray, Float> visited = new HashMap<StateArray, Float>();
 
 	public static boolean[] randomState(int size) {
 		boolean[] mask = new boolean[size];
@@ -18,6 +18,8 @@ public class State {
 		for (int i = 0; i < mask.length; i++) {
 			mask[i] = rand.nextBoolean();
 		}
+		// add the state to the visited states map
+		visited.put(new StateArray(mask), null);
 		return mask;
 	}
 
@@ -32,13 +34,23 @@ public class State {
 
 			// check if new state has already been visited
 			StateArray newStateObject = new StateArray(newState);
-			if (!visited.contains(newStateObject)) {
+			if (!visited.containsKey(newStateObject)) {
 				// unseen state, add to neighbourhood and visited set
-				visited.add(newStateObject);
+				visited.put(newStateObject, null);
 				neighbourhood.add(newState);
 			}
 		}
 		return neighbourhood;
+	}
+
+	public static Float getStateValue(boolean[] state) {
+		// return loss value from the state-loss map
+		return visited.get(new StateArray(state));
+	}
+
+	public static void setStateValue(boolean[] state, float value) {
+		// set the loss of a state in the state-loss map
+		visited.replace(new StateArray(state), value);
 	}
 
 	public static void reset() {

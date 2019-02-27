@@ -20,11 +20,20 @@ public class State {
 
 		boolean[] newState;
 		for (int i = 0; i < state.length; i++) {
-			// generate new state array with a single flipped boolean
+			// generate new state array
 			neighbourhood[i] = state.clone();
+			// flip the ith boolean in the new state array
 			neighbourhood[i][i] = !neighbourhood[i][i];
 		}
 		return neighbourhood;
+	}
+
+	public static boolean[] randomNeighbour(boolean[] state) {
+		boolean[] neighbour = state.clone();
+		// flip a random boolean in the new state array
+		int index = rand.nextInt(neighbour.length);
+		neighbour[index] = !neighbour[index];
+		return neighbour;
 	}
 
 }

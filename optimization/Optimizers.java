@@ -50,10 +50,13 @@ public class Optimizers {
 		Thread[] threads = new Thread[iterations];
 		boolean[][] results = new boolean[iterations][];
 
+		// start n threads for parallel computation
 		for (int i = 0; i < iterations; i++) {
 			final int index = i;
+			// initialize thread
 			threads[i] = new Thread(new Runnable() {
 				public void run() {
+				        // run hill climbing in thread and save result into array
 				        results[index] = hillClimbing(psuCount);
 				}
 			});
@@ -61,6 +64,7 @@ public class Optimizers {
 		}
 
 		try {
+			// wait until all threads are finished
 			for (int i = 0; i < threads.length; i++) {
 				threads[i].join();
 			}
@@ -69,13 +73,19 @@ public class Optimizers {
 			return null;
 		}
 
-		boolean[] best = results[0];
+		boolean[] bestState = results[0];
+		float bestLoss = Loss.loss(bestState);
+		float currentLoss;
+
+		// find state with maximal loss in the results array
 		for (int i = 1; i < results.length; i++) {
-			if (Loss.loss(best) < Loss.loss(results[i])) {
-				best = results[i];
+			currentLoss = Loss.loss(results[i]);
+			if (bestLoss < currentLoss) {
+				bestState = results[i];
+				bestLoss = currentLoss;
 			}
 		}
-		return best;
+		return bestState;
 	}
 
 }

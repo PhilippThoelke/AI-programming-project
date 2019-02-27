@@ -50,7 +50,11 @@ public class PSU {
 		int[] indices = new int[itemNames.length];
 		// find the corresponding index for each item name in the array
 		for (int i = 0; i < itemNames.length; i++) {
-			indices[i] = itemMapping.get(itemNames[i]);
+			if (itemMapping.containsKey(itemNames[i])) {
+				indices[i] = itemMapping.get(itemNames[i]);
+			} else {
+				return null;
+			}
 		}
 		return indices;
 	}

@@ -4,13 +4,26 @@ import java.lang.Thread;
 import java.lang.Runnable;
 import java.lang.InterruptedException;
 
+import java.util.Random;
+
 public class Optimizers {
 
+	// parameters for simulated annealing
+	// this configuration was found by testing
+	private static final double INITIAL_TEMPERATURE = 2500;
+	private static final float LOSS_SCALE = 1e7f;
+	private static final int TEMPERATURE_STEP_DELAY = 5;
+	private static final float TEMPERATURE_DECREASE = 0.3f;
+
+	private static Random rand = new Random();
+
 	public static boolean[] hillClimbing(int psuCount) {
+		// public wrapper for hill climbing
 		return hillClimbing(psuCount, false);
 	}
 
 	public static boolean[] firstChoiceHillClimbing(int psuCount) {
+		// public wrapper for first choice hill climbing
 		return hillClimbing(psuCount, true);
 	}
 
@@ -86,6 +99,46 @@ public class Optimizers {
 			}
 		}
 		return bestState;
+	}
+
+	public static boolean[] simulatedAnnealing(int psuCount) {
+		boolean[] currentState = State.randomState(psuCount);
+		float currentLoss = Loss.loss(currentState);
+
+		double temperature = INITIAL_TEMPERATURE;
+
+		boolean[] newState;
+		float newLoss;
+		float evaluator;
+		int stepCounter = 0;
+
+		while (temperature >= 0) {
+			// find a random neighbour in the current neighbourhood
+			newState = State.randomNeighbour(currentState);
+			newLoss = Loss.loss(newState);
+
+			evaluator = (newLoss - currentLoss) * LOSS_SCALE;
+			if (evaluator > 0) {
+				// random state is better than current
+				currentState = newState;
+				currentLoss = newLoss;
+			} else {
+				// random state is worse than current
+				if (rand.nextFloat() < Math.exp(evaluator / temperature)) {
+					// choose worse random state with probability exp(evaluator / temperature)
+					currentState = newState;
+					currentLoss = newLoss;
+				}
+			}
+
+			stepCounter++;
+			// decrease temperature every nth step
+			if (stepCounter == TEMPERATURE_STEP_DELAY) {
+				temperature -= TEMPERATURE_DECREASE;
+				stepCounter = 0;
+			}
+		}
+		return currentState;
 	}
 
 }

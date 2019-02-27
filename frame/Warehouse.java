@@ -9,25 +9,30 @@ import frontend.Window;
 
 public class Warehouse {
 
+	// currently loaded PSUs and order
 	private static PSU[] psus;
 	private static int[] order;
 
 	public static void main(String[] args) {
-		Window window = new Window();
+		// create a window object which handles user interaction
+		new Window();
 	}
 
 	public static boolean readWarehouseFile(String path) {
+		// parse a new warehouse file
 		psus = Parser.parseWarehouse(path);
 		return psus != null;
 	}
 
 	public static boolean readOrderFile(String path) {
+		// parse a new order file
 		order = Parser.parseOrder(path);
 		return order != null;
 	}
 
 	public static HashSet<Integer> maskedItems(boolean[] mask) {
 		HashSet<Integer> items = new HashSet<>();
+
 		for (int i = 0; i < psus.length; i++) {
 			if (mask[i]) {
 				items.addAll(psus[i].getItems());

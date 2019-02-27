@@ -16,12 +16,14 @@ public class Warehouse {
 		Window window = new Window();
 	}
 
-	public static void readWarehouseFile(String path) {
-		psus = Parser.parseWarehouse("problem_files\\problem1.txt");
+	public static boolean readWarehouseFile(String path) {
+		psus = Parser.parseWarehouse(path);
+		return psus != null;
 	}
 
-	public static void readOrderFile(String path) {
-		order = Parser.parseOrder("problem_files\\order11.txt");
+	public static boolean readOrderFile(String path) {
+		order = Parser.parseOrder(path);
+		return order != null;
 	}
 
 	public static HashSet<Integer> maskedItems(boolean[] mask) {

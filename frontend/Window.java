@@ -46,6 +46,9 @@ public class Window {
 	private static final int WAREHOUSE = 0;
 	private static final int ORDER = 1;
 
+	private static final Color ORANGE = new Color(255, 153, 0);
+	private static final Color GREEN = new Color(0, 200, 0);
+
 	private static final String[] algorithmNames = {
 		"Hill climbing",
 		"First choice hill climbing",
@@ -302,7 +305,7 @@ public class Window {
 		}
 
 		print("<<------------------ ");
-		print("Starting optimization", new Color(255, 153, 0));
+		print("Starting optimization", ORANGE);
 		println(" ------------------>>");
 		println("Selected optimizer: " + selected);
 
@@ -325,22 +328,22 @@ public class Window {
 		startBtn.setEnabled(true);
 
 		if (optimized != null) {
-			print("Optimization finished ", new Color(255, 153, 0));
+			print("Optimization finished ", ORANGE);
 			float deltaTime = (System.nanoTime() - startTime) / 1e9f;
 			DecimalFormat format = new DecimalFormat("#.##");
 			println("(" + format.format(deltaTime) + " seconds)");
 
 			print("\nNumber of used PSUs: ");
-			println(Integer.toString(Loss.numPSUsUsed(optimized)), new Color(0, 200, 0));
+			println(Integer.toString(Loss.numPSUsUsed(optimized)), GREEN);
 
 			print("Number of carried items: ");
-			print(Integer.toString(Warehouse.numItemsCarried(optimized)), new Color(0, 200, 0));
+			print(Integer.toString(Warehouse.numItemsCarried(optimized)), GREEN);
 			print(" (individual: ");
-			print(Integer.toString(Warehouse.maskedItems(optimized).size()), new Color(0, 200, 0));
+			print(Integer.toString(Warehouse.maskedItems(optimized).size()), GREEN);
 			println(")");
 
 			print("Loss: ");
-			println(Float.toString(Loss.loss(optimized)), new Color(0, 200, 0));
+			println(Float.toString(Loss.loss(optimized)), GREEN);
 
 			print("\n");
 			for (int i = 0; i < optimized.length; i++) {

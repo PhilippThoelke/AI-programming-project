@@ -286,7 +286,6 @@ public class Window {
 		if (checkInputFields()) {
 			new Thread(new Runnable() {
 				public void run() {
-				        State.reset();
 				        optimize();
 				}
 			}).start();

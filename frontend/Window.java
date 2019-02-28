@@ -34,6 +34,18 @@ import java.lang.Runnable;
 
 import java.text.DecimalFormat;
 
+/*
+ *	The window class contains code for constructing the graphical user interface
+ *	using a SpringLayout as the layout manager. This allows to set constraints between
+ *	different layout components and is able to keep the layout structure similar for
+ *	multiple window sizes. In the constructor of the class the whole window is set up
+ *	together with all constraints between the components and it is made visible.
+ *	Furthermore action listeners are attached to all the buttons so that user interaction
+ *	is handled appropriately.
+ *	The class also takes care of printing messages to the output pane in different colors
+ *	and starts the optimizers, as well as analyzing the optimizer's result.
+ */
+
 public class Window {
 
 	// ------------- GUI ATTRIBUTES ------------- \\

@@ -44,6 +44,8 @@ import java.text.DecimalFormat;
  *	is handled appropriately.
  *	The class also takes care of printing messages to the output pane in different colors
  *	and starts the optimizers, as well as analyzing the optimizer's result.
+ *	Additionally the main method is also contained in the Window class which just
+ *	instantiates a new window object.
  */
 
 public class Window {
@@ -89,6 +91,11 @@ public class Window {
 	private JButton startBtn;
 	private JButton openWarehouseBtn;
 	private JButton openOrderBtn;
+
+	public static void main(String[] args) {
+		// create a window object which handles user interaction
+		new Window();
+	}
 
 	public Window() {
 		frame = new JFrame("AI Programming Project");

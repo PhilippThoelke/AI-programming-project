@@ -24,3 +24,8 @@ hs_err_pid*
 
 # List of files to compile
 *.javafiles
+
+# Manifest files
+*.MF
+
+build

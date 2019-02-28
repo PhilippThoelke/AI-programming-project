@@ -147,7 +147,7 @@ public class Window {
 
 		// ----------------------- OPTIMIZER SECTION -----------------------
 
-		JLabel optimizerLbl = new JLabel("Algorithm");
+		JLabel optimizerLbl = new JLabel("Optimization algorithm");
 
 		optimizerBox = new JComboBox<>(optimizerNames);
 		optimizerBox.addActionListener(new ActionListener() {

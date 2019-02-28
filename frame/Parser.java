@@ -7,6 +7,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/*
+ *	The Parser class takes care of loading and parsing warehouse configuration and order files.
+ *	The file paths are provided by the user via the GUI built in the Window class. Warehouse files
+ *	list all items in the first line, separated by spaces, followed by a blank line and the provides
+ *	a PSU with the items it carries in every following line of the file. The order file consists of
+ *	just one line containing all the ordered item names. The parser uses the PSU class to create
+ *	a mapping from item name to an index by just counting up from zero up to the total number of
+ *	items. It also catches errors in the loaded files and returns appropriate error values.
+ */
+
 public class Parser {
 
 	public static PSU[] parseWarehouse(String path) {

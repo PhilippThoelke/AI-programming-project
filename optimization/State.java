@@ -2,6 +2,17 @@ package optimization;
 
 import java.util.Random;
 
+/*
+ *	The State class implements static operations to generate new random states, neighbourhoods
+ *	of states and single random neighbours. A state is a boolean array with the length equal to
+ *	the number of PSUs where each element determines whether the PSU with the index of the
+ *	element is being used or not. This way a high dimensional state space is constructed which
+ *	contains every possible constellation of PSUs. The neighbourhood of a state consists of all
+ *	states around the given one where a single entry in the state array is flipped. This ensures
+ *	that all possible states can be reached and that the neighbourhood does not grow too large to
+ *	iterate over.
+ */
+
 public class State {
 
 	private static Random rand = new Random();

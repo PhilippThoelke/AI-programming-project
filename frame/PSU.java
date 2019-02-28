@@ -3,6 +3,15 @@ package frame;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/*
+ *	The PSU class on the one hand handles the mapping between an item name and its corresponding ID.
+ *	Therefore it saves names and ID integers in two maps which allow a bidirectional mapping. Both
+ *	item name and item ID are unique so a perfect mapping in both maps is guaranteed. This
+ *	functionality is provided by static operations without the need of a PSU object.
+ *	On the other hand a PSU object contains a set of all IDs of the items that are carried
+ *	by this PSU. It also provides operations to retrieve the item information again.
+ */
+
 public class PSU {
 
 	// global mapping of item names to integers and reverse

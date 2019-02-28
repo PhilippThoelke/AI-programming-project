@@ -6,6 +6,17 @@ import java.lang.InterruptedException;
 
 import java.util.Random;
 
+/*
+ *	The Optimizers class contains the code for the five local search algorithms hill climbing,
+ *	first choice hill climbing, local beam search, parallel hill climbing and simulated annealing.
+ *	Objects of this class should not be created since all the local search operations
+ *	are static methods that do not require instantiation. Each of the local search algorithms
+ *	takes the PSU count as a parameter (local beam search and parallel hill climbing require
+ *	an additional state parameter) and returns a boolean array representing the optimized state.
+ *	In each call to one of the methods the initial state or states are initialized randomly so
+ *	multiple calls may result in different results.
+ */
+
 public class Optimizers {
 
 	// parameters for simulated annealing

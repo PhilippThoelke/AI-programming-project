@@ -5,7 +5,17 @@ import java.util.HashSet;
 import optimization.Optimizers;
 import optimization.Loss;
 
-import frontend.Window;
+/*
+ *	The Warehouse class contains the current warehouse configuration with all the PSU information
+ *	and the currently ordered items. It also allows to retrieve a set of all items that are
+ *	carried by PSUs specified in a given state and calculate how many items these PSUs
+ *	carry in total. Furthermore getter operations for the current PSU configuration and
+ *	order are implemented. These are all static so a warehouse object is not necessary. The class
+ *	contains only static attributes and operations because only a single set of PSUs and a single
+ *	order can be active at one time and this also enables access to this data from every
+ *	other class which is important because the PSU configuration and current order are essential
+ *	information during the optimization.
+ */
 
 public class Warehouse {
 

@@ -6,6 +6,8 @@ import java.lang.InterruptedException;
 
 import java.util.Random;
 
+import util.State;
+
 /*
  *	The Optimizers class contains the code for the five local search algorithms hill climbing,
  *	first choice hill climbing, local beam search, parallel hill climbing and simulated annealing.

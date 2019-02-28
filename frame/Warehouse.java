@@ -5,6 +5,8 @@ import java.util.HashSet;
 import optimization.Optimizers;
 import optimization.Loss;
 
+import util.Parser;
+
 /*
  *	The Warehouse class contains the current warehouse configuration with all the PSU information
  *	and the currently ordered items. It also allows to retrieve a set of all items that are

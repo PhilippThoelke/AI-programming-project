@@ -1,4 +1,4 @@
-package optimization;
+package util;
 
 import java.util.Random;
 

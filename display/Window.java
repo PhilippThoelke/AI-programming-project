@@ -418,8 +418,7 @@ public class Window {
 			optimized = Optimizers.firstChoiceHillClimbing(Warehouse.psuCount());
 		} else if (selected.equals(optimizerNames[2])) {
 			// local beam search
-			// TODO: implement Local beam search
-			println("ERROR: Not yet implemented", Color.red);
+			optimized = Optimizers.localBeamSearch(Warehouse.psuCount(), stateCount);
 		} else if (selected.equals(optimizerNames[3])) {
 			// parallel hill climbing
 			optimized = Optimizers.parallelHillClimbing(Warehouse.psuCount(), stateCount);

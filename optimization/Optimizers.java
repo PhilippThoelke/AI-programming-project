@@ -5,6 +5,7 @@ import java.lang.Runnable;
 import java.lang.InterruptedException;
 
 import java.util.Random;
+import java.util.Arrays;
 
 import util.State;
 
@@ -112,6 +113,72 @@ public class Optimizers {
 			}
 		}
 		return bestState;
+	}
+
+	public static boolean[] localBeamSearch(int psuCount, int beamCount) {
+		// initialize random states
+		boolean[][] buildStates = new boolean[beamCount][];
+		for (int i = 0; i < buildStates.length; i++) {
+			buildStates[i] = State.randomState(psuCount);
+		}
+
+		boolean[][] bestStates = null;
+		Float[] bestLosses = null;
+
+		boolean[][] neighbourhood;
+
+		boolean foundBetter = true;
+		while (foundBetter) {
+			// save the currently best states
+			bestStates = new boolean[beamCount][];
+			bestLosses = new Float[beamCount];
+
+			// iterate over all build states
+			for (boolean[] currentBuilder : buildStates) {
+				neighbourhood = State.generateNeighbourhood(currentBuilder);
+
+				// iterate over neighbourhood of the current build state
+				for (int i = 0; i < neighbourhood.length; i++) {
+					float currentLoss = Loss.loss(neighbourhood[i]);
+					if (bestStates[beamCount - 1] == null || bestLosses[beamCount - 1] < currentLoss) {
+						// the current state should be inserted into the best states array
+						int index = bestStates.length - 1;
+						// move forward while there is a null entry at index
+						while (index >= 0 && bestLosses[index] == null) {
+							index--;
+						}
+
+						if (index == -1) {
+							// array contains only null
+							bestLosses[0] = currentLoss;
+							bestStates[0] = neighbourhood[i];
+						} else {
+							// move forward in the array until we found the place to insert the current state
+							while (index >= 0 && currentLoss >= bestLosses[index]) {
+								if (index < bestStates.length - 1) {
+									// shift the current state back
+									bestLosses[index + 1] = bestLosses[index];
+									bestStates[index + 1] = bestStates[index];
+								}
+								// insert the new state
+								bestLosses[index] = currentLoss;
+								bestStates[index] = neighbourhood[i];
+
+								index--;
+							}
+						}
+					}
+				}
+			}
+
+			if (Loss.loss(buildStates[0]) >= bestLosses[0]) {
+				// no improvement since last iteration -> stop optimization
+				foundBetter = false;
+			}
+			// use best states from this iteration as the build states in the next iteration
+			buildStates = bestStates;
+		}
+		return bestStates[0];
 	}
 
 	public static boolean[] simulatedAnnealing(int psuCount) {

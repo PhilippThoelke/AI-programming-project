@@ -40,7 +40,8 @@ The code was written in Java without the use of external libraries. It is divide
     The Loss class implements the loss function used to determine how "good" a certain state is. It takes into account how many of the ordered items are provided by the current state and how many PSUs the state requires. Loss should be maximized (maximization problem) to achieve the best working result requiring the least amount of PSUs while maintaining coverage of all ordered items. The components (item coverage and PSU count) are normalized so that the loss function is applicable to different warehouse configurations without adjustment. Furthermore some local search parameters are tuned to the specific loss implementation which is another reason to normalize the components since optimization performance depends on the size of the loss values.
 
 * **util**
-The util packages provides utility classes which cover random state generation, random neighbour selection, neighbourhood generation, warehouse file parsing and order file parsing. It is used by the other packages to outsource tasks that do not exactly fit into the other packages.
+
+  The util packages provides utility classes which cover random state generation, random neighbour selection, neighbourhood generation, warehouse file parsing and order file parsing. It is used by the other packages to outsource tasks that do not exactly fit into the other packages.
 
   * *Parser*
 

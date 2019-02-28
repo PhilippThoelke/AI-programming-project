@@ -13,11 +13,6 @@ public class Warehouse {
 	private static PSU[] psus;
 	private static int[] order;
 
-	public static void main(String[] args) {
-		// create a window object which handles user interaction
-		new Window();
-	}
-
 	public static boolean readWarehouseFile(String path) {
 		// parse a new warehouse file
 		psus = Parser.parseWarehouse(path);

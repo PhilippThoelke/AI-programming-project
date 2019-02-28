@@ -1,4 +1,4 @@
-package frontend;
+package display;
 
 import frame.Warehouse;
 

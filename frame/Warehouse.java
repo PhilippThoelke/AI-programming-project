@@ -32,7 +32,7 @@ public class Warehouse {
 
 	public static HashSet<Integer> maskedItems(boolean[] mask) {
 		HashSet<Integer> items = new HashSet<>();
-
+		// return all items that are being carried by the PSUs selected in the boolean mask
 		for (int i = 0; i < psus.length; i++) {
 			if (mask[i]) {
 				items.addAll(psus[i].getItems());
@@ -43,6 +43,7 @@ public class Warehouse {
 
 	public static int numItemsCarried(boolean[] mask) {
 		int numItemsCarried = 0;
+		// return how many items the PSUs selected by the boolean mask carry
 		for (int i = 0; i < psus.length; i++) {
 			if (mask[i]) {
 				numItemsCarried += psus[i].itemCount();
